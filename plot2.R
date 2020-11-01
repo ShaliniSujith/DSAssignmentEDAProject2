@@ -1,0 +1,17 @@
+#Place: BaltiMore City, Maryland
+#Objective: Total emission from PM2.5 decreased using a base plotting system 
+#Year: 1999 - 2008
+
+NEI[, Emissions := lapply(.SD, as.numeric), .SDcols = c("Emissions")]
+totalNEI <- NEI[fips=='24510',lapply(.SD, sum, na.rm = TRUE)
+                , .SDcols=c("Emissions")
+                , by = year]
+
+png(filename = 'plot2.png')
+barplot(totalNEI[, Emissions]
+                 ,names = totalNEI[,year]
+                 ,xlab = "Years"
+                 ,ylab = "Emissions"
+                 ,main = "Emissions over the years")
+
+dev.off()
